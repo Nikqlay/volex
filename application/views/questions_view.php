@@ -17,14 +17,9 @@
             <td><?php echo $question['text'] ?></td>
             <td>
                 <p>
-                    <?php
-                        foreach ($data ['qwesAnsMap'] [$question['id']] as $answer ) {
-
-                            ?>
-                            <input type="radio" name="question_<?php echo $question['id'] ?>" value="answer_<?php echo $answer ['id'] ?>">  <?php echo $answer ['text'] ?> <br><br>
-
-                        }
-                    ?>
+                    <?php foreach ($data ['qwesAnsMap'] [$question['id']] as $answer ) : ?>
+                        <input type="radio" name="question_<?php echo $question['id'] ?>" value="answer_<?php echo $answer ['id'] ?>">  <?php echo $answer ['text'] ?> <br><br>
+                    <?php endforeach; ?>
                 </p>
            </td>
        </tr>
