@@ -35,6 +35,7 @@ class Controller_Questions extends Controller
         $questionIds = array_merge($radioIds, $checkboxIds, $exactIds);
 
         $answerModel = new Model_Answer();
+
         $answers = $answerModel->get_data($questionIds);
 
         $qwesAnsMap = [];
@@ -53,4 +54,95 @@ class Controller_Questions extends Controller
 
 		$this->view->generate('questions_view.php', 'template_view.php', $data);
 	}
+
+    public function action_submit () {
+
+//        Array
+//        (
+//            [question_4] => answer_10
+//            [question_1] => answer_3
+//            [variantL] =>
+//       )
+
+
+        $_POST = array_filter($_POST);
+
+
+        $inputQweAnsMap = [];
+        foreach ($_POST as $key => $value) {
+            $key = explode('_', $key);
+            $qId=$key[1];
+            $value = explode('_', $value);
+            $vId=$value[1];
+            if (!isset($inputQweAnsMap [$qId])) {
+                $inputQweAnsMap [$qId] = [];
+            }
+
+            $inputQweAnsMap [$qId][]=$vId;
+
+        }
+
+
+//         Array
+//        (
+//            [4] => [10]
+//            [1] => [1]
+//            [] =>
+//        )
+
+
+
+
+        $inputQuestionsIds = array_keys($inputQweAnsMap);
+
+
+        $answerModel = new Model_Answer();
+        $rightAns = $answerModel->get_right_answers($inputQuestionsIds);
+
+        $rightQwesAnsMap = [];
+        foreach ($rightAns as $answer) {
+
+            $qId=$answer['question_id'];
+            if (!isset ($rightQwesAnsMap [$qId])) {
+                $rightQwesAnsMap [$qId] = [];
+            }
+
+            $rightQwesAnsMap [$qId][] = $answer['id'];
+
+        }
+
+        $userRightQwe =[];
+
+        foreach ($inputQweAnsMap as $qUid=>$userResult) {
+            $rightAnswer = $rightQwesAnsMap [$qUid];
+            if ($userResult == $rightAnswer) {
+
+                $userRightQwe[]= $qUid;
+
+
+            }
+
+
+        }
+
+
+
+
+
+        echo '<pre>';
+        print_r($inputQweAnsMap);
+        echo '</pre>';
+
+        echo '<pre>';
+        print_r($rightQwesAnsMap);
+        echo '</pre>';
+
+        echo '<pre>';
+        print_r($userRightQwe);
+        echo '</pre>';
+
+
+
+    }
+
 }

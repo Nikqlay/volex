@@ -1,4 +1,5 @@
-﻿<h3>Пользователь № <?php echo $data ['userId']?> </h3>
+﻿<form method="post" action="/questions/submit">
+<h3>Пользователь № <?php echo $data ['userId']?> </h3>
 <h1>Вопросы</h1>
 <p>
 <table>
@@ -75,3 +76,5 @@
     ?>
 </table>
 </p>
+    <input type="submit">
+</form>
