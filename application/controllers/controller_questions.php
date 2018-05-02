@@ -91,8 +91,6 @@ class Controller_Questions extends Controller
 //        )
 
 
-
-
         $inputQuestionsIds = array_keys($inputQweAnsMap);
 
 
@@ -124,10 +122,6 @@ class Controller_Questions extends Controller
 
 
         }
-
-
-
-
 
         echo '<pre>';
         print_r($inputQweAnsMap);
