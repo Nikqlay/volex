@@ -8,34 +8,25 @@
 
 
 
-
-
-
 <?php
-
-
-
 	foreach($data['radio'] as $question)
 	{
-
 		?>
 	    <tr>
             <td><?php echo $question['id'] ?></td>
             <td><?php echo $question['text'] ?></td>
+            <td>
+                <p>
+                    <?php
+                        foreach ($data ['qwesAnsMap'] [$question['id']] as $answer ) {
 
-                <td>
-                    <p>
-                        <?php
-                            foreach ($data ['qwesAnsMap'] [$question['id']] as $answer ) {
+                            ?>
+                            <input type="radio" name="question_<?php echo $question['id'] ?>" value="answer_<?php echo $answer ['id'] ?>">  <?php echo $answer ['text'] ?> <br><br>
 
-                                ?>
-                                <input type="radio" name="question_<?php echo $question['id'] ?>" value="answer_<?php echo $answer ['id'] ?>">  <?php echo $answer ['text'] ?> <br><br>
-                                 <?php ?>
-                            }
-                        ?>
-
-                    </p>
-               </td>
+                        }
+                    ?>
+                </p>
+           </td>
        </tr>
         <?php
 	}
